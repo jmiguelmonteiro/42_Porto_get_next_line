@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:48 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/07 18:29:55 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:01:51 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,23 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
-	int		len;
+	int		i;
 	char	*str;
 	char	cc;
 
 	str = (char *) s;
 	cc = (char) c;
-	len = ft_strlen(str);
-	if (cc == '\0')
-		return (&str[len]);
-	while (len > 0)
+	i = 0;
+	while (str[i])
 	{
-		if (str[len - 1] == cc)
-			return (&str[len - 1]);
-		len--;
+		if (str[i] == cc)
+			return (&str[i]);
+		i++;
 	}
+	if (cc == '\0')
+		return (&str[i]);
 	return (NULL);
 }
 
