@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:00 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/08 17:54:47 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/08 22:40:35 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*add_to_raw(char *raw_line, char *buffer)
 
 char	*read_fd(int fd, char *raw_line)
 {
-	char	buffer[BUFFER_SIZE];
+	char	buffer[BUFFER_SIZE + 1];
 	int		bytes_read;
 
 	bytes_read = 0;
@@ -47,21 +47,24 @@ char	*read_fd(int fd, char *raw_line)
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == 0)
 			return (raw_line);
+		buffer[bytes_read] = '\0';
 		raw_line = add_to_raw(raw_line, buffer);
+		if (bytes_read < BUFFER_SIZE)
+			return (raw_line);
 	}
 }
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE];
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*raw_line;
 	char		*next_line;
 	
-	raw_line = ft_calloc(1, sizeof(char));
 	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (buffer[0] != '\0')
-		ft_memmove(raw_line, buffer, BUFFER_SIZE);
+	raw_line = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	ft_memmove(raw_line, buffer, BUFFER_SIZE);
+	raw_line[BUFFER_SIZE] = '\0';
 	raw_line = read_fd(fd, raw_line);
 	next_line = extract_line(raw_line);
 	
@@ -77,7 +80,6 @@ int	main(void)
 	fd = open("teste.txt", O_RDONLY);
 	if (fd != -1)
 	{
-		printf("%s", str = get_next_line(fd));
 		printf("%s", str = get_next_line(fd));
 	}
 	free(str);
