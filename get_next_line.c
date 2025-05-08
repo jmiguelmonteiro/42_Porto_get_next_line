@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:00 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/08 22:40:35 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/08 23:04:24 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ char	*extract_line(char *raw_line)
 
 	nl_pos = ft_strchr(raw_line, '\n');
 	pos = nl_pos - raw_line;
-	next_line = ft_calloc((pos + 1), sizeof (char));
+	next_line = ft_calloc((pos + 2), sizeof (char));
 	ft_memmove(next_line, raw_line, pos + 1);
+	next_line[pos + 1] = '\0';
 	return (next_line);	
 }
 
@@ -80,7 +81,8 @@ int	main(void)
 	fd = open("teste.txt", O_RDONLY);
 	if (fd != -1)
 	{
-		printf("%s", str = get_next_line(fd));
+		str = get_next_line(fd);
+		printf("%s", str);
 	}
 	free(str);
 	return (0);
