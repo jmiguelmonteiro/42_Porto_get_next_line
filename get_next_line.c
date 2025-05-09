@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:00 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/09 19:09:37 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/09 23:37:26 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*read_fd(int fd, char *raw_line)
 		if (bytes_read == -1)
 		{
 			free(buffer);
+			free(raw_line);
 			return (NULL);
 		}
 		buffer[bytes_read] = '\0';
