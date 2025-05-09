@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:20 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/08 16:57:45 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:10:21 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <limits.h>
+# include <stdint.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1000
 # endif
 
 char	*get_next_line(int fd);
 char	*add_to_raw(char *buffer_static, char *buffer);
 char	*read_fd(int fd, char *raw_line);
+void	update_buffer(char *buffer, char *raw_line);
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
