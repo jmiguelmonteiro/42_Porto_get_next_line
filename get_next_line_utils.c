@@ -6,11 +6,18 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:48 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/09 22:35:30 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:06:11 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_free_null(char *str)
+{
+	if (str)
+		free(str);
+	return (NULL);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -36,11 +43,8 @@ size_t	ft_strlen(const char *s)
 	size_t	len;
 
 	len = 0;
-	while (*s)
-	{
-		s++;
+	while (s && s[len])
 		len++;
-	}
 	return (len);
 }
 
