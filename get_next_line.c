@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:00 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/10 13:07:57 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:41:38 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ char	*extract_line(char *raw_line)
 	next_line = ft_calloc((pos + 2), sizeof (char));
 	ft_memmove(next_line, raw_line, pos + 1);
 	next_line[pos + 1] = '\0';
-	if (next_line && *next_line)
-		return (next_line);
-	return (ft_free_null(next_line));
+//	if (next_line && *next_line)
+	return (next_line);
+//	return (ft_free_null(next_line));
 }
 
 char	*add_buffer_to_raw(char *raw_line, char *buffer)
@@ -35,6 +35,8 @@ char	*add_buffer_to_raw(char *raw_line, char *buffer)
 	char	*new_raw_line;
 
 	new_raw_line = ft_strjoin(raw_line, buffer);
+	if (!new_raw_line)
+		return (NULL);
 	free(raw_line);
 	ft_memset(buffer, '\0', BUFFER_SIZE + 1);
 	return (new_raw_line);
@@ -90,6 +92,7 @@ char	*get_next_line(int fd)
 	raw_line = malloc(1 * sizeof(char));
 	if (!raw_line)
 		return (NULL);
+	raw_line[0] = '\0';
  	if (buffer[0])
 		raw_line = add_buffer_to_raw(raw_line, buffer);
 	raw_line = read_fd(fd, raw_line, buffer);
