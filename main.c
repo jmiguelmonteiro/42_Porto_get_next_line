@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 10:53:12 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/10 16:31:44 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:49:44 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 	int		i;
 
 	i = 0;
-	fd = open("tests/giant_line.txt", O_RDONLY);
+	fd = open("tests/1char.txt", O_RDONLY);
 	if (fd == -1)
 		printf("Error opening file\n");
 	while (++i)

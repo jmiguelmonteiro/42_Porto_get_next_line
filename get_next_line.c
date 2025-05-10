@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:00 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/10 16:41:38 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:54:48 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ char	*extract_line(char *raw_line)
 	pos = 0;
 	while ((raw_line[pos] != '\n') && (raw_line[pos] != '\0'))
 		pos++;
-	next_line = ft_calloc((pos + 2), sizeof (char));
+	next_line = malloc((pos + 2) * sizeof (char));
+	if (!next_line)
+		return (NULL);
 	ft_memmove(next_line, raw_line, pos + 1);
 	next_line[pos + 1] = '\0';
 //	if (next_line && *next_line)
@@ -35,10 +37,10 @@ char	*add_buffer_to_raw(char *raw_line, char *buffer)
 	char	*new_raw_line;
 
 	new_raw_line = ft_strjoin(raw_line, buffer);
-	if (!new_raw_line)
-		return (NULL);
 	free(raw_line);
 	ft_memset(buffer, '\0', BUFFER_SIZE + 1);
+	if (!new_raw_line)
+		return (NULL);
 	return (new_raw_line);
 }
 
@@ -73,6 +75,8 @@ char	*read_fd(int fd, char *raw_line, char *buffer)
 			return (ft_free_null(raw_line));
 		buffer[bytes_read] = '\0';
 		raw_line = add_buffer_to_raw(raw_line, buffer);
+		if (!raw_line)
+			return (NULL);
 		if (bytes_read < BUFFER_SIZE)
 			return (raw_line);
 	}
@@ -94,8 +98,14 @@ char	*get_next_line(int fd)
 		return (NULL);
 	raw_line[0] = '\0';
  	if (buffer[0])
+	{
 		raw_line = add_buffer_to_raw(raw_line, buffer);
+		if (!raw_line)
+			return (NULL);
+	}
 	raw_line = read_fd(fd, raw_line, buffer);
+	if (!raw_line)
+		return (NULL);
 	if (raw_line)
 	{
 		next_line = extract_line(raw_line);
