@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:00 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/12 14:39:15 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:48:06 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*extract_line(char *raw_line)
 {
@@ -86,25 +86,25 @@ static char	*read_fd(int fd, char *raw_line, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[MAX_FD][BUFFER_SIZE + 1];
 	char		*raw_line;
 	char		*next_line;
 
 	raw_line = NULL;
 	next_line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (NULL);
 	raw_line = malloc(1 * sizeof(char));
 	if (!raw_line)
 		return (NULL);
 	raw_line[0] = '\0';
-	if (buffer[0])
-		raw_line = add_buffer_to_raw(raw_line, buffer);
-	raw_line = read_fd(fd, raw_line, buffer);
+	if (buffer[fd][0])
+		raw_line = add_buffer_to_raw(raw_line, buffer[fd]);
+	raw_line = read_fd(fd, raw_line, buffer[fd]);
 	if (!raw_line)
 		return (NULL);
 	next_line = extract_line(raw_line);
-	update_buffer(raw_line, buffer);
+	update_buffer(raw_line, buffer[fd]);
 	free(raw_line);
 	return (next_line);
 }
