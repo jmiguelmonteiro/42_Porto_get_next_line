@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:00 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/12 14:05:01 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:10:53 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,8 @@ char	*get_next_line(int fd)
 	raw_line = read_fd(fd, raw_line, buffer);
 	if (!raw_line)
 		return (NULL);
-	else
-	{
-		next_line = extract_line(raw_line);
-		update_buffer(raw_line, buffer);
-		free(raw_line);
-	}
+	next_line = extract_line(raw_line);
+	update_buffer(raw_line, buffer);
+	free(raw_line);
 	return (next_line);
 }
