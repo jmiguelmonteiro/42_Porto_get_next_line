@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 10:53:12 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/10 19:49:44 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/12 10:44:23 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int	main(void)
 		free(line);
 	}
 	close(fd);
+	printf("\n(the end)\n");
 	return (0);
 }

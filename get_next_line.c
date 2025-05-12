@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:00 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/10 19:54:48 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:46:54 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*extract_line(char *raw_line)
 	pos = 0;
 	while ((raw_line[pos] != '\n') && (raw_line[pos] != '\0'))
 		pos++;
+	if (raw_line[pos] == '\0')
+		pos -= 1; 
 	next_line = malloc((pos + 2) * sizeof (char));
 	if (!next_line)
 		return (NULL);
