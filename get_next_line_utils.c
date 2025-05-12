@@ -6,18 +6,11 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:48 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/10 13:06:11 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:06:22 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_free_null(char *str)
-{
-	if (str)
-		free(str);
-	return (NULL);
-}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -101,33 +94,4 @@ void	*ft_memset(void *s, int c, size_t n)
 	while (n--)
 		*ptr++ = (unsigned char) c;
 	return (s);
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*ptr;
-
-	if (nmemb && size && nmemb > (INT_MAX / size))
-		return (NULL);
-	ptr = malloc(nmemb * size);
-	if (!ptr)
-		return (NULL);
-	ft_memset(ptr, '\0', nmemb * size);
-	return (ptr);
-}
-
-void	*ft_memchr(const void *s, int c, size_t n)
-{
-	size_t			i;
-	unsigned char	*ptr_s;
-
-	i = 0;
-	ptr_s = (unsigned char *) s;
-	while (i < n)
-	{
-		if (ptr_s[i] == (unsigned char) c)
-			return (&ptr_s[i]);
-		i++;
-	}
-	return ((void *) NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: josemigu <josemigu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:57:00 by josemigu          #+#    #+#             */
-/*   Updated: 2025/05/12 13:46:54 by josemigu         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:05:01 by josemigu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,13 @@ char	*extract_line(char *raw_line)
 	while ((raw_line[pos] != '\n') && (raw_line[pos] != '\0'))
 		pos++;
 	if (raw_line[pos] == '\0')
-		pos -= 1; 
+		pos -= 1;
 	next_line = malloc((pos + 2) * sizeof (char));
 	if (!next_line)
 		return (NULL);
 	ft_memmove(next_line, raw_line, pos + 1);
 	next_line[pos + 1] = '\0';
-//	if (next_line && *next_line)
 	return (next_line);
-//	return (ft_free_null(next_line));
 }
 
 char	*add_buffer_to_raw(char *raw_line, char *buffer)
@@ -68,13 +66,15 @@ char	*read_fd(int fd, char *raw_line, char *buffer)
 	int		bytes_read;
 
 	bytes_read = 0;
+	if (!raw_line)
+		return (NULL);
 	while (true)
 	{
 		if (ft_strchr(raw_line, '\n'))
 			return (raw_line);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (ft_free_null(raw_line));
+			return (free(raw_line), NULL);
 		buffer[bytes_read] = '\0';
 		raw_line = add_buffer_to_raw(raw_line, buffer);
 		if (!raw_line)
@@ -94,28 +94,20 @@ char	*get_next_line(int fd)
 	next_line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-
 	raw_line = malloc(1 * sizeof(char));
 	if (!raw_line)
 		return (NULL);
 	raw_line[0] = '\0';
- 	if (buffer[0])
-	{
+	if (buffer[0])
 		raw_line = add_buffer_to_raw(raw_line, buffer);
-		if (!raw_line)
-			return (NULL);
-	}
 	raw_line = read_fd(fd, raw_line, buffer);
 	if (!raw_line)
 		return (NULL);
-	if (raw_line)
+	else
 	{
 		next_line = extract_line(raw_line);
 		update_buffer(raw_line, buffer);
 		free(raw_line);
 	}
-	else
-		ft_memset(buffer, '\0', BUFFER_SIZE + 1);
-
 	return (next_line);
 }
